@@ -3,24 +3,25 @@ from matplotlib import pyplot as plt
 from torchvision.datasets import CIFAR10
 from torchvision.transforms import transforms
 
-from src.dataset import PatchifyTransform
+from src.dataset import PatchifyTransform, WayangKulit
 from src.models.basic import ViT
 from train import PATCH_SIZE, MODELS_DIR, BASE_DIR
 
 if __name__ == '__main__':
     transform = transforms.Compose(
         [
+            transforms.Resize(size=(32, 32)),
             transforms.ToTensor(),
-            transforms.Normalize((0.4914, 0.4822, 0.4465), (0.247, 0.243, 0.261)),
+            transforms.Normalize((0.63528919, 0.57810118, 0.51988552), (0.33020571, 0.34510824, 0.36673283)),
             PatchifyTransform(PATCH_SIZE)
         ]
     )
-    ds = CIFAR10(BASE_DIR.joinpath('data/cifar'), train=False, transform=None)
+    ds = WayangKulit('dataset/val', transform=None)
 
-    model = ViT.load_from_checkpoint(MODELS_DIR.joinpath('epoch=198-step=19502.ckpt'))
+    model = ViT.load_from_checkpoint(MODELS_DIR.joinpath('epoch=91-step=552.ckpt'))
     model.eval()
 
-    im, c = ds[4]
+    im, c = ds[120]
 
     inp = transform(im).unsqueeze(0)
     res = model(inp)
