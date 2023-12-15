@@ -48,7 +48,7 @@ class ImageEmbedding(nn.Module):
         prepend class token tensor, and add position embedding
 
         Args:
-            inp: batch of patchified images
+            inp: batch of patchified dataset
 
         Returns:
             Inner model tensor
@@ -118,7 +118,7 @@ class MultiHeadAttention(nn.Module):
         """Run all attention heads for input tensor
 
         Args:
-            input_tensor: batches of inner model images
+            input_tensor: batches of inner model dataset
         Returns:
             Tensor with attention heads applied
         """

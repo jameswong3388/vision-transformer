@@ -34,7 +34,7 @@ WEIGHT_DECAY = 1e-6
 torch.set_float32_matmul_precision('medium')
 
 # TODO: update the code in the tutorial
-# TODO: update train paragraph in the tutorial: text, code, and images
+# TODO: update train paragraph in the tutorial: text, code, and dataset
 
 if __name__ == '__main__':
     data = WayangKulitDataModule(batch_size=BATCH_SIZE, val_batch_size=VAL_BATCH_SIZE, patch_size=PATCH_SIZE)
