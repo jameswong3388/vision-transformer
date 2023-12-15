@@ -20,7 +20,7 @@ PATCH_SIZE = 4
 
 SIZE = PATCH_SIZE * PATCH_SIZE * 3  # 4 * 4 * 3 (RGB colors)
 HIDDEN_SIZE = 512
-NUM_PATCHES = int(32 * 32 / PATCH_SIZE ** 2)  # 32 x 32 is the size of image in CIFAR10
+NUM_PATCHES = int(32 * 32 / PATCH_SIZE ** 2)  # 32 x 32 is the size of image in Wayang kulit
 
 NUM_HEADS = 8
 NUM_ENCODERS = 4
@@ -34,7 +34,7 @@ WEIGHT_DECAY = 1e-6
 torch.set_float32_matmul_precision('medium')
 
 # TODO: update the code in the tutorial
-# TODO: update train paragraph in the tutorial: text, code, and dataset
+# TODO: update train paragraph in the tutorial: text, code, and images
 
 if __name__ == '__main__':
     data = WayangKulitDataModule(batch_size=BATCH_SIZE, val_batch_size=VAL_BATCH_SIZE, patch_size=PATCH_SIZE)
