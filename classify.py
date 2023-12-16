@@ -1,6 +1,5 @@
 from matplotlib import pyplot as plt
 
-from torchvision.datasets import CIFAR10
 from torchvision.transforms import transforms
 
 from src.dataset import PatchifyTransform, WayangKulit

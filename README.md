@@ -24,5 +24,10 @@ Then install the rest of the libraries with the command:
 pip install -r requirements-cuda.txt
 ```
 
+## View logs
+```python
+python3 -m tensorboard.main --logdir=lightning/lightning_logs/
+```
+
 ## Credits
 https://github.com/MikhailKravets/vision_transformer

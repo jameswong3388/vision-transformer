@@ -49,9 +49,7 @@ class WayangKulitDataModule(pl.LightningDataModule):
 
         self.train_transform = transforms.Compose(
             [
-                # transforms.ToPILImage(),
                 transforms.Resize(size=(im_size, im_size)),
-                # transforms.Lambda(lambda x: x.squeeze(0)),
 
                 transforms.RandomHorizontalFlip(),
                 transforms.RandomResizedCrop(size=(im_size, im_size)),
@@ -64,7 +62,6 @@ class WayangKulitDataModule(pl.LightningDataModule):
         )
         self.val_transform = transforms.Compose(
             [
-                # transforms.ToPILImage(),
                 transforms.Resize(size=(im_size, im_size)),
 
                 transforms.ToTensor(),
@@ -81,15 +78,15 @@ class WayangKulitDataModule(pl.LightningDataModule):
         self.ds_val = WayangKulit('dataset/val', transform=self.val_transform)
 
     def train_dataloader(self):
-        return DataLoader(self.ds_train, batch_size=self.batch_size)
+        return DataLoader(self.ds_train, batch_size=self.batch_size, num_workers=2, persistent_workers=True)
 
     def val_dataloader(self):
-        return DataLoader(self.ds_val, batch_size=self.batch_size)
+        return DataLoader(self.ds_val, batch_size=self.batch_size, num_workers=2, persistent_workers=True)
 
     @property
     def classes(self):
         """Returns the amount of WayangKulitDataModule classes"""
-        return 5  # Wayang kulit dataset has 5 possible classes
+        return 14
 
 
 class WayangKulit(Dataset):

@@ -66,12 +66,11 @@ if __name__ == '__main__':
         default_root_dir=LIGHTNING_DIR,
         log_every_n_steps=LOG_EVERY_N_STEPS,
         max_epochs=MAX_EPOCHS,
-        callbacks=[checkpoint_callback, es, lr_monitor],
-        resume_from_checkpoint=MODELS_DIR.joinpath("last.ckpt") # deprecated
+        callbacks=[checkpoint_callback, lr_monitor],
     )
     trainer.fit(
         model,
         data,
-        # ckpt_path=str(MODELS_DIR.joinpath("last.ckpt"))  # to resume training on a model
+        # ckpt_path=str(MODELS_DIR.joinpath("last.ckpt"))
     )
 
