@@ -56,7 +56,7 @@ class WayangKulitDataModule(pl.LightningDataModule):
                 transforms.RandomRotation(degrees=rotation_degrees),
 
                 transforms.ToTensor(),
-                transforms.Normalize((0.63528919, 0.57810118, 0.51988552), (0.33020571, 0.34510824, 0.36673283)),
+                transforms.Normalize((0.6629, 0.6247, 0.5835), (0.3045, 0.3196, 0.3401)),
                 PatchifyTransform(patch_size),
             ]
         )
@@ -65,7 +65,7 @@ class WayangKulitDataModule(pl.LightningDataModule):
                 transforms.Resize(size=(im_size, im_size)),
 
                 transforms.ToTensor(),
-                transforms.Normalize((0.63528919, 0.57810118, 0.51988552), (0.33020571, 0.34510824, 0.36673283)),
+                transforms.Normalize((0.6628, 0.6246, 0.5834), (0.2829, 0.2980, 0.3196)),
                 PatchifyTransform(patch_size),
             ]
         )
