@@ -3,6 +3,7 @@ pandas
 torch
 torchvision
 tensorboard
-pytorch-lightning
+lightning
 matplotlib
 datasets
+torchmetrics

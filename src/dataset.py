@@ -1,15 +1,14 @@
-from pathlib import Path
-import torch
-import pytorch_lightning as pl
-from datasets import load_dataset
-
-from torch.utils.data import DataLoader, Dataset
-from torchvision.transforms import AutoAugment, AutoAugmentPolicy, transforms
-
 import glob
-from pandas.core.common import flatten
 import random
+from pathlib import Path
+
+import lightning as pl
+import torch
 from PIL import Image
+from datasets import load_dataset
+from pandas.core.common import flatten
+from torch.utils.data import DataLoader, Dataset
+from torchvision.transforms import transforms
 
 BASE_DIR = Path(__file__).parent.parent
 
@@ -39,7 +38,6 @@ class PatchifyTransform:
         res = res.unfold(2, self.patch_size, self.patch_size)  # 3 x 8 x 8 x 4 x 4
 
         return res.reshape(-1, self.patch_size * self.patch_size * 3)  # -1 x 48 == 64 x 48
-
 class WayangKulitDataModule(pl.LightningDataModule):
     def __init__(self, batch_size: int = 32, patch_size: int = 4, val_batch_size: int = 16,
                  im_size: int = 32, rotation_degrees: (int, int) = (-30, 30)):
@@ -72,16 +70,21 @@ class WayangKulitDataModule(pl.LightningDataModule):
 
         self.ds_train = None
         self.ds_val = None
+        self.ds_test = None
 
     def setup(self, stage: str):
         self.ds_train = WayangKulit('dataset/train', transform=self.train_transform)
         self.ds_val = WayangKulit('dataset/val', transform=self.val_transform)
+        self.ds_test = WayangKulit('dataset/test', transform=self.val_transform)
 
     def train_dataloader(self):
         return DataLoader(self.ds_train, batch_size=self.batch_size, num_workers=2, persistent_workers=True)
 
     def val_dataloader(self):
         return DataLoader(self.ds_val, batch_size=self.batch_size, num_workers=2, persistent_workers=True)
+
+    def test_dataloader(self):
+        return DataLoader(self.ds_test, batch_size=self.batch_size, num_workers=2, persistent_workers=True)
 
     @property
     def classes(self):

@@ -1,5 +1,7 @@
 numpy
 pandas
 tensorboard
-pytorch-lightning==1.9.4
+pytorch-lightning
 matplotlib
+torchmetrics
+datasets

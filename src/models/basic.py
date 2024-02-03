@@ -1,7 +1,6 @@
+import lightning as pl
 import torch
 import torch.nn.functional as F
-import pytorch_lightning as pl
-
 from torch import nn
 from torch.optim import AdamW, lr_scheduler
 
@@ -242,6 +241,26 @@ class ViT(pl.LightningModule):
         self.log("val_loss", loss, prog_bar=True)
         self.log("val_accuracy", logit_accuracy(output, target), prog_bar=True)
 
+        return loss
+
+    def test_step(self, batch, batch_idx):
+        """The same as training and validation step but for testing.
+
+        Args:
+            batch: tuple of input and target
+            batch_idx: index of batch
+
+        Returns:
+            Test loss - None, as we don't use it in this case
+        """
+
+        input_batch, target = batch
+        output = self(input_batch)
+
+        loss = F.cross_entropy(output, target)  # Calculate loss for logging purposes
+
+        # Calculate and log accuracy using logit_accuracy function
+        self.log("test_accuracy", logit_accuracy(output, target), prog_bar=True)
         return loss
 
     def configure_optimizers(self):
